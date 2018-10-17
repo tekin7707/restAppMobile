@@ -6,11 +6,25 @@
   </ion-header>
 
   <ion-content>
-    <ion-list>
+    <ion-list *ngIf="loggedUser">
       <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
         {{p.title}}
       </button>
+
+      <button menuClose ion-item>
+        Ayarlar
+      </button>
+      <button menuClose ion-item (click)="logout()">
+        Çıkış
+      </button>
     </ion-list>
+
+    <ion-list *ngIf="!loggedUser">
+      <button menuClose ion-item (click)="login()">
+        Giriş
+      </button>
+    </ion-list>
+
   </ion-content>
 
 </ion-menu>

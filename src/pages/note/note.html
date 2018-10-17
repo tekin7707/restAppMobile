@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>RestApp</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-fab top right #fab *ngIf="mode=='detail'">
+  <button ion-fab><ion-icon name="arrow-dropdown"></ion-icon></button>
+  <ion-fab-list side="bottom">
+    <button ion-fab (click)="prepare(fab)"><ion-icon name="add"></ion-icon></button>
+  </ion-fab-list>
+</ion-fab>
+
+<ion-content padding>
+  <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+  <ion-list *ngIf="notes">
+    <ion-item *ngFor="let n of notes">
+      <button ion-item (click)="itemTapped($event,n)">
+        <ion-icon name="star" item-start></ion-icon>
+        {{n.date | date:'dd.MM.yyyy HH:mm'}}
+        <div item-right>{{n.name}}</div>
+      </button>
+    </ion-item>
+  </ion-list>
+</ion-content>

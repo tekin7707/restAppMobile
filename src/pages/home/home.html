@@ -3,16 +3,22 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Home</ion-title>
+    <ion-title>RestApp</ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <h3>Ionic Menu Starter</h3>
+<ion-content padding *ngIf="loggedUser">
+  Control Example : {{loggedUser.email}}
 
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will show you the way.
-  </p>
+<br>
+<br>
+<ion-list>
+<button ion-item *ngFor="let user of users"> 
+  <!-- (click)="itemTapped($event,product)" -->
+    {{user.email}}
+    <div item-right>{{user.id}}</div>
+  </button>
 
-  <button ion-button secondary menuToggle>Toggle Menu</button>
+  </ion-list>
+
 </ion-content>

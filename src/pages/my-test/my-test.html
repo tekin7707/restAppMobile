@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>RestApp</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <button ion-button full (click)="getSimData()">get sim info</button>
+  <button ion-button full (click)="getContacts()">get contacts</button>
+  <button ion-button full (click)="sendSMS()">send SMS</button>
+  
+  <p>{{mesaj}}</p>
+
+  <div *ngIf="testNumber==2">
+    <ion-list>
+      <ion-item *ngFor="let contact of everybody | async">
+          {{contact.name.givenName}} {{contact.name.familyName}}
+          <div text-right>{{contact.phoneNumbers[0].value}}</div>
+      </ion-item>
+    </ion-list>
+  </div>
+  <div *ngIf="testNumber==1">
+    <ion-card *ngFor="let card of cards">
+      <ion-card-header>
+        {{card.carrierName}} - {{card.phoneNumber}}
+      </ion-card-header>
+      <ion-card-content>
+        <ion-list *ngIf="simInfo">
+          <ion-item><b>countryCode :</b> {{ simInfo.countryCode }}</ion-item>
+        </ion-list>
+        <ion-list>
+          <ion-item><b>Number</b> {{ card.phoneNumber}}</ion-item>
+          <ion-item><b>simSlotIndex</b> {{ card.simSlotIndex }}</ion-item>
+          <ion-item><b>displayName</b> {{ card.displayName }}</ion-item>
+          <ion-item><b>isNetworkRoaming</b> {{ card.isNetworkRoaming }}</ion-item>
+          <ion-item><b>isDataRoaming</b> {{ card.isDataRoaming }}</ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+</ion-content>

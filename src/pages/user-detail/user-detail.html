@@ -1,0 +1,84 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>RestApp</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-fab top right #fab *ngIf="mode=='detail'">
+  <button ion-fab><ion-icon name="arrow-dropdown"></ion-icon></button>
+  <ion-fab-list side="bottom">
+    <!-- <button ion-fab (click)="prepare('insert',fab)"><ion-icon name="add"></ion-icon></button> -->
+    <button ion-fab (click)="prepare('update',fab)"><ion-icon name="create"></ion-icon></button>
+    <!-- <button ion-fab (click)="prepare('delete',fab)"><ion-icon name="trash"></ion-icon></button> -->
+  </ion-fab-list>
+</ion-fab>
+
+<ion-content padding>
+  <ion-card *ngIf="user">
+    <!-- <img src="img/nin-live.png" /> -->
+    <ion-card-content>
+      <ion-card-title *ngIf="mode=='detail'">
+        Kullanıcı Detayı
+      </ion-card-title>
+      <ion-card-title *ngIf="mode!='detail'">
+        {{mode}}
+      </ion-card-title>
+      <ion-list>
+        <ion-item id="rounded">
+          <ion-label stacked>Email</ion-label>
+          <ion-input type="text" [(ngModel)]="user.email" name="email" outline  [disabled]="mode=='detail'"></ion-input>
+        </ion-item>
+        <ion-item id="rounded">
+          <ion-label stacked>Müşteri Tanım</ion-label>
+          <ion-input type="text" [(ngModel)]="user.name" name="name" [disabled]="mode=='detail'"></ion-input>
+        </ion-item>
+        <ion-item id="rounded">
+          <ion-label stacked>Soyad</ion-label>
+          <ion-input type="text" [(ngModel)]="user.surname" name="psurname" outline [disabled]="mode=='detail'"></ion-input>
+        </ion-item>
+        <ion-item id="rounded">
+          <ion-label stacked>Adres</ion-label>
+          <ion-input type="text" [(ngModel)]="user.address" name="address" outline [disabled]="mode=='detail'"></ion-input>
+        </ion-item>
+        <ion-item right>
+          <div item-right icon-right *ngIf="mode!='detail'">
+            <button ion-button color="dark" (click)="cancel()">Vazgeç
+            </button>
+          </div>
+          <div item-right *ngIf="mode=='delete'" icon-right> Kayıt Silinecek. Emin misiniz?
+            <button ion-button color="danger" icon-right (click)="confirm()">Sil
+              <ion-icon name="trash"></ion-icon>
+            </button>
+          </div>
+          <div item-right *ngIf="mode=='insert' || mode=='update'">
+            <button ion-button right color="secondary" icon-right (click)="confirm()">Kaydet
+              <ion-icon name="thumbs-up"></ion-icon>
+            </button>
+          </div>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+  <ion-card class="block">
+    <button ion-button icon-left (click)="deleteUserPicture()" *ngIf="base64Image!=null" [disabled]="mode=='detail'">
+      <ion-icon name="trash"></ion-icon>Sil
+    </button>
+    <img [src]="'data:image/jpeg;base64,' + base64Image" *ngIf="base64Image" />
+  </ion-card>
+</ion-content>
+
+<ion-footer *ngIf="mode!='detail'">
+  <ion-toolbar color="primary">
+    <ion-buttons>
+      <button ion-button icon-left (click)="presentActionSheet()">
+        <ion-icon name="camera"></ion-icon>Select Image
+      </button>
+      <button ion-button icon-left (click)="uploadImage()" [disabled]="readyForUpload==false">
+        <ion-icon name="cloud-upload"></ion-icon>Upload
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

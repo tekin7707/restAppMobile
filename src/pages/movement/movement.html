@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>RestApp</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-fab top right #fab *ngIf="mode=='detail'">
+  <button ion-fab><ion-icon name="arrow-dropdown"></ion-icon></button>
+  <ion-fab-list side="bottom">
+    <button ion-fab (click)="prepare(fab)"><ion-icon name="add"></ion-icon></button>
+  </ion-fab-list>
+</ion-fab>
+
+<ion-content padding>
+  <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+  <ion-list *ngIf="movement_list">
+    <ion-item *ngFor="let l of movement_list">
+      <button ion-item (click)="itemTapped($event,l)">
+        <ion-icon name="star" item-start></ion-icon>
+        <div ion-header style="font-family: 'Courier New', Courier, monospace">
+          {{l.movement.date | date:'dd.MM.yyyy HH:mm'}}
+        </div>
+        <div item-center style="font-family:'Times New Roman', Times, serif">
+          {{l.movement_type_plus}}
+        </div>
+        {{l.customer_name}}
+        <div item-right>{{l.movement.price}}</div>
+
+      </button>
+    </ion-item>
+  </ion-list>
+</ion-content>

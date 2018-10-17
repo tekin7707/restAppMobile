@@ -1,0 +1,62 @@
+<ion-header>
+    <ion-navbar>
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+      <ion-title>RestApp</ion-title>
+    </ion-navbar>
+  </ion-header>
+  
+  <ion-fab top right #fab *ngIf="mode=='detail'">
+    <button ion-fab><ion-icon name="arrow-dropdown"></ion-icon></button>
+    <ion-fab-list side="bottom">
+      <button ion-fab (click)="prepare('insert',fab)"><ion-icon name="add"></ion-icon></button>
+      <button ion-fab (click)="prepare('update',fab)"><ion-icon name="create"></ion-icon></button>
+      <button ion-fab (click)="prepare('delete',fab)"><ion-icon name="trash"></ion-icon></button>
+    </ion-fab-list>
+  </ion-fab>
+  
+  <ion-content padding>
+    <ion-card-content>
+      <ion-card-title *ngIf="mode=='detail'">
+        Hareket Detayı
+      </ion-card-title>
+      <ion-card-title *ngIf="mode!='detail'">
+        {{mode}}
+      </ion-card-title>
+      <ion-list *ngIf="note">
+  
+        <ion-item id="rounded">
+          <ion-label>Date</ion-label>
+          <ion-datetime displayFormat="DD/MM/YYYY" name="sdate" [(ngModel)]="sdate" (ionChange)="changeDate($event)"></ion-datetime>
+        </ion-item>
+  
+        <ion-item id="rounded">
+          <ion-label stacked>Başlık</ion-label>
+          <ion-input type="text" [(ngModel)]="note.name" name="name" outline></ion-input>
+        </ion-item>
+        <ion-item id="rounded">
+          <ion-label stacked>Not</ion-label>
+          <ion-input type="text" [(ngModel)]="note.note_" name="note_" outline></ion-input>
+        </ion-item>
+        <ion-item right>
+          <div item-right *ngIf="mode=='delete'" icon-right> Kayıt Silinecek. Emin misiniz?
+            <button ion-button color="danger" icon-right (click)="confirm()">Sil
+              <ion-icon name="trash"></ion-icon>
+            </button>
+          </div>
+          <div item-right *ngIf="mode=='insert' || mode=='update'">
+            <button ion-button right color="secondary" icon-right (click)="confirm()">Kaydet
+              <ion-icon name="thumbs-up"></ion-icon>
+            </button>
+          </div>
+        </ion-item>
+        <ion-item *ngIf="mode!='detail'">
+          <div item-right icon-right>
+            <button ion-button block color="dark" (click)="cancel()">Vazgeç
+            </button>
+          </div>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-content>

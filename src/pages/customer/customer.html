@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>RestApp</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding *ngIf="loggedUser">
+  <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+  <ion-list>
+    <button ion-item *ngFor="let customer of customers" (click)="itemTapped($event,customer)">
+      {{customer.name}}
+      <div item-right>{{customer.id}}</div>
+    </button>
+  </ion-list>
+</ion-content>

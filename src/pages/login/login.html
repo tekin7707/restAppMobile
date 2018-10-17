@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>RestApp</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding *ngIf="!loggedUser">
+  <ion-list>
+    <ion-item>
+      <ion-label floating>Email</ion-label>
+      <ion-input type="text" [(ngModel)]="email" name="email" outline></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Şifre</ion-label>
+      <ion-input type="password" [(ngModel)]="password" name="password" outline></ion-input>
+    </ion-item>
+    <button ion-button full (click)="login()">
+      Giriş
+    </button>
+  </ion-list>
+  <br>
+  <ion-list no-lines>
+    <ion-item text-right>
+      Eğer Kayıtlı Değilsen
+    </ion-item>
+    <ion-item>
+      <button ion-button item-right color="dark" icon-end (click)="register()">
+        Kaydol
+        <ion-icon name="thumbs-up"></ion-icon>
+      </button>
+    </ion-item>
+  </ion-list>
+
+</ion-content>
+
+<ion-content padding *ngIf="loggedUser">
+  <ion-list>
+    <ion-item>{{email}}
+    </ion-item>
+    <ion-item>{{loggedUser.token}}
+    </ion-item>
+  </ion-list>
+</ion-content>
